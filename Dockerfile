@@ -22,7 +22,7 @@ RUN conda config --add channels r
 RUN conda config --add channels bioconda
 
 RUN conda install --quiet --yes \
-    'r-base=3.3.2' \
+    'r-base=3.4.3' \
     'r-irkernel' \
     'r-plyr' \
     'r-devtools' \
@@ -35,10 +35,11 @@ RUN conda install --quiet --yes \
     'r-readr' \
     'r-TTR' \
     'r-tidyverse' \
+    'r-lubridate' \
     'r-quantmod' && conda clean -tipsy
     
 ## These are not available via conda
-RUN echo "chooseCRANmirror(ind=1); install.packages(c('PerformanceAnalytics', 'PortfolioAnalytics'))" | R --vanilla
+RUN echo "chooseCRANmirror(ind=1); install.packages(c('forecast','PerformanceAnalytics', 'PortfolioAnalytics', 'mapdata', 'ggthemes', 'ROI'))" | R --vanilla
 
 WORKDIR /home/user
 ADD . /home/user
