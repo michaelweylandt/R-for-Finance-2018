@@ -22,7 +22,7 @@ RUN conda config --add channels r
 RUN conda config --add channels bioconda
 
 RUN conda install --quiet --yes \
-    'r-base=3.4.3' \
+    'r-base=3.3.2' \
     'r-irkernel' \
     'r-plyr' \
     'r-devtools' \
