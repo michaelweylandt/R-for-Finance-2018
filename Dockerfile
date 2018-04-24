@@ -21,9 +21,14 @@ USER $NB_USER
 RUN conda config --add channels r
 RUN conda config --add channels bioconda
 
+## See discussion at https://github.com/bioconda/bioconda-recipes/issues/5350
+RUN conda install -c conda-forge readline=6.2
+
 RUN conda install --quiet --yes \
-    'r-base=3.3.2' \
-    'r-irkernel' \
+    'r-base=3.4' \
+    'r-irkernel' && conda clean -tipsy
+
+RUN conda install --quiet --yes \
     'r-plyr' \
     'r-devtools' \
     'r-shiny' \
@@ -37,10 +42,9 @@ RUN conda install --quiet --yes \
     'r-tidyverse' \
     'r-lubridate' \
     'r-quantmod' && conda clean -tipsy
-    
+
 ## These are not available via conda
-RUN echo "chooseCRANmirror(ind=1); install.packages(c('forecast','PerformanceAnalytics', 'PortfolioAnalytics', 'mapdata', 'ggthemes', 'ROI'))" | R --vanilla
+RUN echo "chooseCRANmirror(ind=1); install.packages(c('forecast','PerformanceAnalytics', 'PortfolioAnalytics', 'mapdata', 'ggthemes', 'ROI', 'stan', 'stochvol', 'rugarch', 'ROI.plugin.quadprog'))" | R --vanilla
 
 WORKDIR /home/user
 ADD . /home/user
-
